@@ -28,3 +28,60 @@ async function getParty(id) {
     console.error(e);
   }
 }
+
+function PartyListItem(party) {
+  const $li = document.createElement("li");
+  $li.textContent = party.name;
+  $li.addEventListener("click", () => getParty(party.id));
+  return $li;
+}
+
+function PartyList() {
+  const $ul = document.createElement("ul");
+  const $parties = parties.map(PartyListItem);
+  $ul.replaceChildren(...$parties);
+  return $ul;
+}
+
+function PartyDetails() {
+  if (!selectedParty) {
+    const $p = document.createElement("p");
+    $p.textContent = "Please select a party to learn more.";
+    return $p;
+  }
+
+  const $party = document.createElement("section");
+  $party.innerHTML = `
+    <h3>${selectedParty.name} #${selectedParty.id}</h3>
+    <time>${selectedParty.date.slice(0, 10)}</time>
+    <address>${selectedParty.location}</address>
+    <p>${selectedParty.description}</p>
+  `;
+  return $party;
+}
+
+function render() {
+  const $app = document.querySelector("#app");
+  $app.innerHTML = `
+    <h1>Party Planner</h1>
+    <main>
+      <section>
+        <h2>Upcoming Parties</h2>
+        <PartyList></PartyList>
+      </section>
+      <section>
+        <h2>Party Details</h2>
+        <PartyDetails></PartyDetails>
+      </section>
+    </main>
+  `;
+  $app.querySelector("PartyList").replaceWith(PartyList());
+  $app.querySelector("PartyDetails").replaceWith(PartyDetails());
+}
+
+async function init() {
+  await getParties();
+  render();
+}
+
+init();
