@@ -1,4 +1,3 @@
-// === Constants ===
 const BASE = "https://fsa-crud-2aa9294fe819.herokuapp.com/api";
 const COHORT = "/2608-BRIAN";
 const RESOURCE = "/events";
@@ -31,7 +30,9 @@ async function getParty(id) {
 
 function PartyListItem(party) {
   const $li = document.createElement("li");
-  $li.textContent = party.name;
+  $li.innerHTML = `
+    <a href="#selected">${party.name}</a>
+  `;
   $li.addEventListener("click", () => getParty(party.id));
   return $li;
 }
@@ -69,7 +70,7 @@ function render() {
         <h2>Upcoming Parties</h2>
         <PartyList></PartyList>
       </section>
-      <section>
+      <section id="selected">
         <h2>Party Details</h2>
         <PartyDetails></PartyDetails>
       </section>

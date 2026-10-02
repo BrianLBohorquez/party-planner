@@ -1,0 +1,34 @@
+body {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin: 1;
+  padding: 2rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+@media (width >= 600px) {
+  main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.parties {
+  gap: 1ch;
+  padding-left: 0;
+}
+
+.parties a {
+  border: 1px solid #ccc;
+  padding: 1ch;
+  text-decoration: none;
+}
+
+.parties a:hover {
+  font-style: italic;
+}
+
+.parties li.selected {
+  font-weight: bold;
+}
